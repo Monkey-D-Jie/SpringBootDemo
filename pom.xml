@@ -102,11 +102,30 @@
 			<version>6.0.6</version>
 		</dependency>
 		<!-- druid数据库连接池 -->
+		<!--<dependency>-->
+			<!--<groupId>com.alibaba</groupId>-->
+			<!--<artifactId>druid</artifactId>-->
+			<!--<version>1.0.28</version>-->
+		<!--</dependency>-->
+
+		<!--druid 依赖-->
 		<dependency>
 			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>1.0.28</version>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>1.1.9</version>
 		</dependency>
+
+		<!--
+		 Spring Boot的JPA依赖包
+		这个包是拿来爪子嘞哇？？
+		明天再来研究咯，只有。。
+
+		-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+		<!--</dependency>-->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-test</artifactId>

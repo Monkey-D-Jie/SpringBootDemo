@@ -14,3 +14,7 @@ https://segmentfault.com/q/1010000012601154/a-1020000012601835
 
 4.freeMarker示例，更多的参考，请移步
 https://blog.csdn.net/eeeeasy/article/details/80808805
+
+5.druid数据源监控，参考自
+SpringBoot(七)：集成DataSource 与 Druid监控配置 - cctext - 博客园
+https://www.cnblogs.com/yy3b2007com/p/8763077.html
