@@ -15,7 +15,15 @@ import java.util.List;
  * To change this template use File | Settings | File and Templates.
  */
 @Mapper
+//测试后也是可以用的
 //@Component
+//测试可行
+//@Repository
+/**
+ * 那问题来了：
+ * 这仨用来声明这个有啥区别哇？
+ *
+ */
 public interface UserDao {
 
     List<User> queryUsers();
