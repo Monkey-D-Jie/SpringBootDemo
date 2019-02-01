@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SpringBoot测试</title>
+    <!--自己找一个jquery，在线的也可以-->
+    <script src="jQuery.js"></script>
+    <script type="text/javascript">
+        function show(){
+            $.post("ajax/hello",{},
+                function(result){
+                    alert(result);
+                }
+            );
+        }
+
+    </script>
+</head>
+<body>
+<button onclick="show()">你大爷</button>
+</body>
+</html>
+<!--作者：eeeeasy-->
+<!--来源：CSDN-->
+<!--原文：https://blog.csdn.net/eeeeasy/article/details/80808805-->
+<!--版权声明：本文为博主原创文章，转载请附上博文链接！-->
