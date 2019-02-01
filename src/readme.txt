@@ -11,7 +11,8 @@ https://blog.csdn.net/eeeeasy/article/details/80808805
     2-1
     在使用注解声明装配各类的时候，要注意主启动程序文件(即项目中SpringbootDemoApplication)所在的位置，
     其他打了注解的文件必须得在它所在包或所在包的子包里的才能被扫描到。
-    打注解这块儿，尤其要注意，Dao层的接口要用Mapper才行，用@Component OR @Repository都不行的，会出现找不到这些dao接口bean类的异常
+    打注解这块儿，尤其要注意，Dao层的接口要用Mapper才行，用@Component OR @Repository也可以，它们分别有什么区别，还待验证和查阅
+
 
 3.SpringMVC注解上的produces声明中，【application/json 和 text/plain】的区别
 text/plain和application/json发送数据都一样的效果，为什么没看见使用text/plain的？ - kikong的回答 - SegmentFault 思否
