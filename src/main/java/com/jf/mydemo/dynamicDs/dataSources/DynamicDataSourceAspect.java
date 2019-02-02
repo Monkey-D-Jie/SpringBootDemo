@@ -48,7 +48,9 @@ public class DynamicDataSourceAspect {
                 // 取出注解中的数据源名
                 dataSource = annotation.value();
             }else{
-                dataSource = (String) point.getArgs()[0];
+                if(point.getArgs().length > 0){
+                    dataSource = (String) point.getArgs()[0];
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,9 +61,8 @@ public class DynamicDataSourceAspect {
     }
 
 
-//    @After("@annotation(com.levy.mysql.DBSource)")
     @AfterReturning(value = "anyMethod()", returning = "result")
-    public void afterSwitchDS(JoinPoint point){
+    public void afterSwitchDS(JoinPoint point,Object result){
         DataSourceContextHolder.clearDB();
     }
 }

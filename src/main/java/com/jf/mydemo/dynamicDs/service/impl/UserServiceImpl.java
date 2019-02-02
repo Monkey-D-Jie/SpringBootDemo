@@ -2,7 +2,6 @@ package com.jf.mydemo.dynamicDs.service.impl;
 
 
 import com.jf.mydemo.dynamicDs.dao.UserDao;
-import com.jf.mydemo.dynamicDs.dataSources.DBSource;
 import com.jf.mydemo.dynamicDs.service.UserService;
 import com.jf.mydemo.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +28,13 @@ public class UserServiceImpl implements UserService {
      * 如果没有指定，则使用默认的数据源。
      * 指定后，以这里指定的为准
      */
-    @DBSource("ds1")
+
+    // 使用默认数据源
     @Override
     public List<User> getAllUsers() {
         return this.userDao.queryUsers();
     }
-
-//    @DBSource("ds2")
+//    @DBSource("dbRead")
     @Override
     public List<User> getAllUsers2(String dsCode) {
         return this.userDao.queryUsers();

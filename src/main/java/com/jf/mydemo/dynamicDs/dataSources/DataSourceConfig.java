@@ -20,6 +20,7 @@ import java.util.Map;
  */
 @Configuration
 public class DataSourceConfig {
+
     @Bean(name = "dynamicSource")
     public DynamicDataSource dataSource(@Qualifier("dbMaster") DataSource dbMaster,
                                         @Qualifier("dbRead") DataSource dbRead) {
@@ -35,15 +36,16 @@ public class DataSourceConfig {
         return dynamicDataSource;
     }
 
-    @Bean
-    //通过注解声明，把数据源的信息从配置文件application.yml中拿出来
-    @ConfigurationProperties(prefix = "spring.datasource.db-master")
+    @Bean(name = "dbMaster")
+    //通过注解声明，把数据源的信息从配置文件application.yml中拿出来-第①种方式
+    //另外就是从.properties文件中把配置信息拿出来-第②种方式
+    @ConfigurationProperties(prefix = "spring.one.datasource")
     public DataSource dbMaster() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.db-read")
+    @Bean(name = "dbRead")
+    @ConfigurationProperties(prefix = "spring.two.datasource")
     public DataSource dbRead() {
         return DataSourceBuilder.create().build();
     }

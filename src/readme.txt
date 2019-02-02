@@ -25,4 +25,14 @@ https://blog.csdn.net/eeeeasy/article/details/80808805
 SpringBoot(七)：集成DataSource 与 Druid监控配置 - cctext - 博客园
 https://www.cnblogs.com/yy3b2007com/p/8763077.html
 
+6.druid集成了，但没能监控到SQL情况
+6.1参考帖子
+springboot使用druid完成sql监控 - 小小傻蛋的博客 - CSDN博客
+https://blog.csdn.net/weixin_39715550/article/details/79375080
+---对比着加入注解声明，还是没有信息打印出来。。
+6.2参考帖子
+springboot集成druid数据源并且监控 - #料 - 博客园
+https://www.cnblogs.com/liduanwen/p/7353517.html
+可算是给搞出来了
+
 
