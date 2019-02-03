@@ -19,7 +19,7 @@ class DataSourceContextHolder {
     /**
      * 默认数据源
      */
-    static final String DEFAULT_DS = "db-master";
+    static final String DEFAULT_DS = "dbMaster";
 
     private static final ThreadLocal<String> contextHolder = new ThreadLocal<>();
 

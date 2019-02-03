@@ -37,10 +37,11 @@ public class UserServiceImpl implements UserService {
     // 使用默认数据源
     @Override
     public Integer addUser(String dbCluster) {
+        Integer userId = (int) ((Math.random() + 1) * 10000);
         User user = new User();
-        user.setUserId(66666);
+        user.setUserId(userId);
         user.setSex(1);
-        user.setUserName("测试数据");
+        user.setUserName("测试数据"+userId);
         user.setPassword("123456");
         user.setPhone("13778758444");
         Integer result = this.clusterUserDao.addUser(user);

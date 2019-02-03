@@ -37,5 +37,8 @@ https://www.cnblogs.com/liduanwen/p/7353517.html
 6.3参考帖子
 springBoot(13)---整合Druid实现多数据源和可视化监控 - 雨点的名字 - 博客园
 http://www.cnblogs.com/qdhxhz/p/10192041.html
+6.4参考帖子
+Spring Boot2.0配置Druid数据库连接池（单数据源、多数据源、数据监控） - 你好，我们在哪里见过啊！ - CSDN博客
+https://blog.csdn.net/qq_38455201/article/details/80769354
 
 
