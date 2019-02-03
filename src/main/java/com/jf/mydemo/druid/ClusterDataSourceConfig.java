@@ -9,25 +9,27 @@ package com.jf.mydemo.druid;
  * To change this template use File | Settings | File and Templates.
  */
 
-import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 /**
  * 从数据源配置
  */
 @Configuration
-@MapperScan(basePackages = ClusterDataSourceConfig.PACKAGE, sqlSessionFactoryRef = "masterSqlSessionFactory")
+@MapperScan(basePackages = ClusterDataSourceConfig.PACKAGE, sqlSessionTemplateRef   = "clusterSqlSessionTemplate")
 public class ClusterDataSourceConfig {
 
     /**
@@ -82,50 +84,64 @@ public class ClusterDataSourceConfig {
     private String connectionProperties;
 
 
-    @Bean(name = "clusterDataSource")
-    public DataSource masterDataSource() {
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        dataSource.setDriverClassName(driverClassName);
+//    @Bean(name = "dbCluster1")
+//    public DataSource masterDataSource() {
+//        DruidDataSource dataSource = new DruidDataSource();
+//        dataSource.setUrl(url);
+//        dataSource.setUsername(username);
+//        dataSource.setPassword(password);
+//        dataSource.setDriverClassName(driverClassName);
+//
+//        //具体配置
+//        dataSource.setInitialSize(initialSize);
+//        dataSource.setMinIdle(minIdle);
+//        dataSource.setMaxActive(maxActive);
+//        dataSource.setMaxWait(maxWait);
+//        dataSource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
+//        dataSource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
+//        dataSource.setValidationQuery(validationQuery);
+//        dataSource.setTestWhileIdle(testWhileIdle);
+//        dataSource.setTestOnBorrow(testOnBorrow);
+//        dataSource.setTestOnReturn(testOnReturn);
+//        dataSource.setPoolPreparedStatements(poolPreparedStatements);
+//        dataSource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
+//        /**
+//         * 这个是用来配置 druid 监控sql语句的 非常有用 如果你有两个数据源 这个配置哪个数据源就监控哪个数据源的sql 同时配置那就都监控
+//         */
+//        try {
+//            dataSource.setFilters(filters);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        dataSource.setConnectionProperties(connectionProperties);
+//        return dataSource;
+//    }
 
-        //具体配置
-        dataSource.setInitialSize(initialSize);
-        dataSource.setMinIdle(minIdle);
-        dataSource.setMaxActive(maxActive);
-        dataSource.setMaxWait(maxWait);
-        dataSource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
-        dataSource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
-        dataSource.setValidationQuery(validationQuery);
-        dataSource.setTestWhileIdle(testWhileIdle);
-        dataSource.setTestOnBorrow(testOnBorrow);
-        dataSource.setTestOnReturn(testOnReturn);
-        dataSource.setPoolPreparedStatements(poolPreparedStatements);
-        dataSource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
-        /**
-         * 这个是用来配置 druid 监控sql语句的 非常有用 如果你有两个数据源 这个配置哪个数据源就监控哪个数据源的sql 同时配置那就都监控
-         */
-        try {
-            dataSource.setFilters(filters);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        dataSource.setConnectionProperties(connectionProperties);
-        return dataSource;
+    @Bean(name = "dbCluster1")
+    @Qualifier("dbCluster1")
+    @ConfigurationProperties(prefix = "spring.two.datasource")
+    public DataSource clusterDataSource() {
+        return DruidDataSourceBuilder.create().build();
     }
 
     @Bean(name = "clusterTransactionManager")
-    public DataSourceTransactionManager masterTransactionManager() {
-        return new DataSourceTransactionManager(masterDataSource());
+    public DataSourceTransactionManager clusterTransactionManager(@Qualifier("dbCluster1") DataSource dataSource) {
+        return new DataSourceTransactionManager(clusterDataSource());
     }
 
     @Bean(name = "clusterSqlSessionFactory")
-    public SqlSessionFactory masterSqlSessionFactory(@Qualifier("clusterDataSource") DataSource masterDataSource)
+    public SqlSessionFactory masterSqlSessionFactory(@Qualifier("dbCluster1") DataSource masterDataSource)
             throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(masterDataSource);
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(ClusterDataSourceConfig.MAPPER_LOCATION));
         return sessionFactory.getObject();
+    }
+
+    @Bean(name = "clusterSqlSessionTemplate")
+    @Primary
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("clusterSqlSessionFactory") SqlSessionFactory sqlSessionFactory)
+            throws Exception {
+        return new SqlSessionTemplate(sqlSessionFactory);
     }
 }

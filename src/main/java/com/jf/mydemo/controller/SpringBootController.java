@@ -65,16 +65,18 @@ public class SpringBootController {
     public ResponseBean book() {
         return new ResponseBean(bookBean);
     }
-    @RequestMapping("/getUser")
+    @RequestMapping("/addUser")
     @ResponseBody
-    public ResponseBean getUser() {
-        return new ResponseBean(this.userService.getAllUsers());
+    public ResponseBean addUser() {
+        //在从库中插入数据-mytest2
+        return new ResponseBean(this.userService.addUser("dbCluster"));
     }
 
     @RequestMapping("/getAllUsers")
     @ResponseBody
     public ResponseBean getAllUsers() {
-        return new ResponseBean(this.userService.getAllUsers2("db-read"));
+        //从主库中读取数据-mytest1
+        return new ResponseBean(this.userService.getAllUsers2("dbMaster"));
     }
 
     /*Freemarker测试-视图跳转，SpringBoot并不推荐使用JSP来作跳转的页面*/

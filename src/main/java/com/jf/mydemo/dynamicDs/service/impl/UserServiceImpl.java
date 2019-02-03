@@ -31,12 +31,20 @@ public class UserServiceImpl implements UserService {
      * 在这里，可以通过注解，手动的切换在spring-mybatis中注册的数据源。
      * 如果没有指定，则使用默认的数据源。
      * 指定后，以这里指定的为准
+     * @param dbCluster
      */
 
     // 使用默认数据源
     @Override
-    public List<User> getAllUsers() {
-        return this.masterUserDao.queryUsers();
+    public Integer addUser(String dbCluster) {
+        User user = new User();
+        user.setUserId(66666);
+        user.setSex(1);
+        user.setUserName("测试数据");
+        user.setPassword("123456");
+        user.setPhone("13778758444");
+        Integer result = this.clusterUserDao.addUser(user);
+        return result;
     }
     @Override
     public List<User> getAllUsers2(String dsCode) {

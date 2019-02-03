@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 public interface UserService {
-    List<User> getAllUsers();
+    Integer addUser(String dbCluster);
 
     List<User> getAllUsers2(String dsCode);
 }

@@ -23,15 +23,15 @@ public class DataSourceConfig {
 
     @Bean(name = "dynamicSource")
     public DynamicDataSource dataSource(@Qualifier("dbMaster") DataSource dbMaster,
-                                        @Qualifier("dbRead") DataSource dbRead) {
+                                        @Qualifier("dbCluster") DataSource dbRead) {
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
         // 设置默认数据源
         dynamicDataSource.setDefaultTargetDataSource(dbMaster);
 
         // 配置多数据源
         Map<Object, Object> dsMap = new HashMap<>(5);
-        dsMap.put("db-master", dbMaster);
-        dsMap.put("db-read", dbRead);
+        dsMap.put("dbMaster", dbMaster);
+        dsMap.put("dbCluster", dbRead);
         dynamicDataSource.setTargetDataSources(dsMap);
         return dynamicDataSource;
     }
@@ -44,7 +44,7 @@ public class DataSourceConfig {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean(name = "dbRead")
+    @Bean(name = "dbCluster")
     @ConfigurationProperties(prefix = "spring.two.datasource")
     public DataSource dbRead() {
         return DataSourceBuilder.create().build();
