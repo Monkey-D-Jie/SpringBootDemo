@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jf.mydemo.dynamicDs.dao.cluster.ClusterUserDao">
+
+    <delete id="deleteUser" parameterType="com.jf.mydemo.entity.User">
+        DELETE FROM t_user WHERE user_id = #{userId}
+    </delete>
+
+
+    <insert id="addUser" parameterType="com.jf.mydemo.entity.User">
+    INSERT INTO
+    t_user
+     (
+	`user_id`,
+	`sex`,
+	`user_name`,
+	`password`,
+	`phone`
+    )
+    VALUES
+	(
+		#{userId},
+		#{sex},
+		#{userName},
+		#{password},
+		#{phone}
+	)
+    </insert>
+
+    <update id="updateUserInfo" parameterType="com.jf.mydemo.entity.User">
+        UPDATE  t_user SET user_name = #{userName}  WHERE user_id = #{userId}
+    </update>
+
+
+</mapper>

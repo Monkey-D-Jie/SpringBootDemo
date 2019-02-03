@@ -3,6 +3,7 @@ package com.jf.mydemo.dynamicDs.dao;
 
 import com.jf.mydemo.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,7 +25,15 @@ import java.util.List;
  * 这仨用来声明这个有啥区别哇？
  *
  */
-public interface UserDao {
+public interface UserBaseDao {
 
     List<User> queryUsers();
+
+    User selectUser(@Param("userId") String userId);
+
+    Integer addUser(User user);
+
+    Integer updateUserInfo(User user);
+
+    Integer deleteUser(User user);
 }

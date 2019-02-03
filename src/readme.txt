@@ -34,5 +34,8 @@ https://blog.csdn.net/weixin_39715550/article/details/79375080
 springboot集成druid数据源并且监控 - #料 - 博客园
 https://www.cnblogs.com/liduanwen/p/7353517.html
 可算是给搞出来了
+6.3参考帖子
+springBoot(13)---整合Druid实现多数据源和可视化监控 - 雨点的名字 - 博客园
+http://www.cnblogs.com/qdhxhz/p/10192041.html
 
 

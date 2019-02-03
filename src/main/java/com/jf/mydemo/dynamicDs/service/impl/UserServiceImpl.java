@@ -1,7 +1,8 @@
 package com.jf.mydemo.dynamicDs.service.impl;
 
 
-import com.jf.mydemo.dynamicDs.dao.UserDao;
+import com.jf.mydemo.dynamicDs.dao.cluster.ClusterUserDao;
+import com.jf.mydemo.dynamicDs.dao.master.MasterUserDao;
 import com.jf.mydemo.dynamicDs.service.UserService;
 import com.jf.mydemo.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private MasterUserDao masterUserDao;
+
+    @Autowired
+    private ClusterUserDao clusterUserDao;
 
     /**
      * 在这里，可以通过注解，手动的切换在spring-mybatis中注册的数据源。
@@ -32,11 +36,10 @@ public class UserServiceImpl implements UserService {
     // 使用默认数据源
     @Override
     public List<User> getAllUsers() {
-        return this.userDao.queryUsers();
+        return this.masterUserDao.queryUsers();
     }
-//    @DBSource("dbRead")
     @Override
     public List<User> getAllUsers2(String dsCode) {
-        return this.userDao.queryUsers();
+        return this.masterUserDao.queryUsers();
     }
 }
